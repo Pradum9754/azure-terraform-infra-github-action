@@ -1,0 +1,41 @@
+name: azure-terraform-infra
+
+on:
+  push:
+    branches:
+      - "main"
+      - "feature/**"
+      - "hotfix/**"
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: Terraform Init | Validate | Plan
+    runs-on: self-hosted
+
+    env:
+      TF_IN_AUTOMATION: true
+      ARM_USE_OIDC: true
+
+    steps:
+      # 1️⃣ Code checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Terraform version setup
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      # 3️⃣ Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # 4️⃣ Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 5️⃣ Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan
