@@ -8,6 +8,7 @@ on:
         - 'hotfix/**'
         
 jobs:
+- job:
   terraforminit:
     name: terraform init
     runs-on: github-actions
@@ -15,7 +16,7 @@ jobs:
     - name: "azure-terraform-infra"
       run: echo azure-terraform-infra
 
-jobs:
+job:
   terraformplan:
     name: terraform plan
     runs-on: github-actions
