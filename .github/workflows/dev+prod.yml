@@ -1,0 +1,48 @@
+name: azure-terraform-infra
+
+on:
+  push:
+    branches:
+      - dev
+      - stage
+      - main
+  workflow_dispatch:  # optional, sirf manual run ke liye
+
+env:
+  TF_IN_AUTOMATION: true
+  ARM_USE_OIDC: true
+
+jobs:
+  terraform:
+    name: Terraform Workflow
+    runs-on: [self-hosted, github-actions]
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      # 3️⃣ Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # 4️⃣ Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 5️⃣ Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan
+
+      # 6️⃣ Terraform Apply (conditional)
+      - name: Terraform Apply
+        if: |
+          github.ref == 'refs/heads/main' || 
+          github.event_name == 'workflow_dispatch'
+        run: terraform apply -auto-approve
