@@ -1,4 +1,4 @@
-name: azure-terraform-infra
+name: azure-terraform-infra-workflow-dispatch
 
 on:
   workflow_dispatch:
