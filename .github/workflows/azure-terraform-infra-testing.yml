@@ -1,4 +1,4 @@
-name: azure-terraform-infra
+name: azure-terraform-infra-testing-purpose
 
 on:
   push:
