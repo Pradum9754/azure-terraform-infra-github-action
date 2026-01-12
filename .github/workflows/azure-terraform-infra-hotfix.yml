@@ -1,4 +1,4 @@
-name: azure-terraform-infra
+name: azure-terraform-infra-hotfix-branch
 
 on:
   push:
