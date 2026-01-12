@@ -1,0 +1,17 @@
+name: "azure-terraform-infra"
+
+on: 
+  push: 
+    branches: 
+        - 'feature/**'
+        - 'main'
+        - 'hotfix/**'
+        
+jobs: 
+ job: 
+  terraforminit:
+    name: terraform init
+    runs-on: github-actions
+    steps: 
+    - name: "azure-terraform-infra"
+      run: echo azure-terraform-infra
